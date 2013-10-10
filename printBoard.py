@@ -8,6 +8,9 @@ Using ASCII art, for an 8x8 board or less, display the positioning of the board
 '''
 
 def printBoard(state):
+    #catch the condition of the board being too large
+    if len(state) > 12:
+        return None
     s = ''
     #top line
     s += '-'*(len(state)*2 + 1) + '\n'
