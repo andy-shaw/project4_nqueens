@@ -9,7 +9,7 @@ attacking each other. return 0 on a solved board
 param: state integer array holding state vector
 return: integer score or rating
 '''
-def boardScore(state):
+def solution(state):
     attacks = 0
     
     #for each queen, see what it can attack

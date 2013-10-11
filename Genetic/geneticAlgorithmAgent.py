@@ -14,6 +14,7 @@ return: state that is a solution
 '''
 
 import array
+import solution as s
 import boardScore as b
 import reproduce as r
 import mutate as m
@@ -82,15 +83,21 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
         for child in children:
             child = m.mutate(child, mutationRate)
             
-        #find max child fitness
-        childFitness = array.array('i')
+        #check to see if a solution was found
         for child in children:
-            childFitness.append(b.boardScore(child))
+            if s.solution(child) == 0:
+                return child
+            
+        #find max child fitness
+        childFitnesses = array.array('i')
+        for child in children:
+            childFitnesses.append(b.boardScore(child))
         maxChildFitness = -1
-        for fitness in childFitness:
+        for fitness in childFitnesses:
             maxChildFitness = max(maxChildFitness, fitness)
             
         #if there has been less than 5% fitness improvement, terminate program
+        print float(maxChildFitness)/maxFitness
         if float(maxChildFitness)/maxFitness > .95:
             return sorted(children)[-1]
         

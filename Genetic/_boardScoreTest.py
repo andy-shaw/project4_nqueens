@@ -11,3 +11,5 @@ assert(b.boardScore(a2) == 23)
 assert(b.boardScore(a3) == 20)
 assert(b.boardScore(a4) == 11)
 
+a5 = array.array('i', [1,1,1,1,1])
+print b.boardScore(a5)
