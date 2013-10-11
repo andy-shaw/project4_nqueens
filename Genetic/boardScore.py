@@ -14,7 +14,17 @@ def boardScore(state):
     
     #for each queen, see what it can attack
     #don't check columns, the way the state is represented means 2 cannot be in 
-    #same column
-    
-    
+        #same column
+    for queen in range(len(state)):
+        #check against other queens
+        for otherQueen in range(queen, len(state)):
+            #if other queen is not in same row as this queen
+            if state[queen] != state[otherQueen]:
+                #check diagonals
+                offset = otherQueen - queen
+                if (state[otherQueen] + offset != state[queen] and 
+                    state[otherQueen] - offset != state[queen]):
+                    noAttacks += 1
+                
+
     return noAttacks

@@ -19,12 +19,12 @@ import array
 import boardScore as b
 import successor as s
 
-def hillClimbingAgent(boardsize, silent=False):
-    #create initial state at random if none is presented (useful for testing certain configurations)
+def hillClimbingAgent(boardSize, silent=False):
+    #create initial state at random
     import random
     initial = array.array('i')
-    for i in range(boardsize):
-        initial.append(random.randint(0, boardsize-1))
+    for i in range(boardSize):
+        initial.append(random.randint(0, boardSize-1))
 
     currNode = (b.boardScore(initial), s.copyArr(initial))
     i = 0
