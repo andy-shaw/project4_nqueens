@@ -14,70 +14,70 @@ return: state that is a solution
 '''
 
 import array
-import solution as s
-import boardScore as b
+from solution import solution
+from boardScore import boardScore
 import reproduce as r
 import mutate as m
 import heapq
 
 def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
-    #generate the population of parent nodes
+    #generate the population of state nodes
     import random
-    parents = list()
+    generation = list()
     for i in range(populationSize):
-        newParent = array.array('i')
+        newState = array.array('i')
         for x in range(boardSize):
-            newParent.append(random.randint(0, boardSize-1))
-        parents.append(newParent)
+            newState.append(random.randint(0, boardSize-1))
+        generation.append(newState)
     
     iteration = 0
     
     #enter genetic algorithm until less than 5% fitness improvement is seen
     while 1:
-        #score each parent
-        scoredParents = list()
-        for parent in parents:
-            scoredParents.append((b.boardScore(parent), parent))
-        scoredParents = sorted(scoredParents)
+        #score each state
+        scoredGeneration = list()
+        for state in generation:
+            scoredGeneration.append((boardScore(state), state))
+        scoredGeneration = sorted(scoredGeneration)
         
         #output iteration, most fit individual and their score
         print 'Iteration: {0}\tMost Fit Individual: {1}\tScore: {2}'.format(
-                iteration, arrToString(scoredParents[-1][1]), scoredParents[-1][0])
+                iteration, arrToString(scoredGeneration[-1][1]), scoredGeneration[-1][0])
             
         #sum fitness scores
         totalFitness = 0
-        for parent in scoredParents:
-            totalFitness += parent[0]
+        for state in scoredGeneration:
+            totalFitness += state[0]
             
         #calculate highest fitness for termination case
         maxFitness = -1
-        for parent in scoredParents:
-            maxFitness = max(maxFitness, parent[0])
+        for state in scoredGeneration:
+            maxFitness = max(maxFitness, state[0])
             
-        #apply percentages of selection to fitness of each parent
+        #apply percentages of selection to fitness of each state
         temp = list()
-        for parent in scoredParents:
-            temp.append((float(parent[0])/totalFitness, parent[1]))
-        scoredParents = temp
+        for state in scoredGeneration:
+            temp.append((float(state[0])/totalFitness, state[1]))
+        scoredGeneration = temp
         
-        #sum up the percentages in each parent
-        for i in range(len(scoredParents) - 2, -1, -1):
-            scoredParents[i] = (scoredParents[i+1][0] + scoredParents[i][0], scoredParents[i][1])
+        #sum up the percentages in each state
+        for i in range(len(scoredGeneration) - 2, -1, -1):
+            scoredGeneration[i] = (scoredGeneration[i+1][0] + scoredGeneration[i][0], scoredGeneration[i][1])
         
-        #choose double the parents as the parent to child ratio is 2:1
-        parents = list()
+        #choose double the generation as the state to child ratio is 2:1
+        generation = list()
         for i in range(2*populationSize):
             selection = random.random()
             #when the random number is less than the current percentage, it is in that range
-            for parent in range(len(scoredParents)):
-                if selection < scoredParents[parent][0]:
-                    parents.append(scoredParents[parent][1])
+            for state in range(len(scoredGeneration)):
+                if selection < scoredGeneration[state][0]:
+                    generation.append(scoredGeneration[state][1])
                     break
                     
         #create the children
         children = list()
-        for i in range(0, len(parents) - 1, 2):
-            children.append(r.reproduce(parents[i], parents[i+1]))
+        for i in range(0, len(generation) - 1, 2):
+            children.append(r.reproduce(generation[i], generation[i+1]))
         
         #mutate the children
         for child in children:
@@ -85,13 +85,13 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
             
         #check to see if a solution was found
         for child in children:
-            if s.solution(child) == 0:
+            if solution(child) == 0:
                 return child
             
         #find max child fitness
         childFitnesses = array.array('i')
         for child in children:
-            childFitnesses.append(b.boardScore(child))
+            childFitnesses.append(boardScore(child))
         maxChildFitness = -1
         for fitness in childFitnesses:
             maxChildFitness = max(maxChildFitness, fitness)
@@ -101,7 +101,6 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
         if float(maxChildFitness)/maxFitness > .95:
             return sorted(children)[-1]
         
-        parents = children
         iteration += 1
         
         
