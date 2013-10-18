@@ -20,7 +20,7 @@ import reproduce as r
 import mutate as m
 import heapq
 
-def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
+def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False):
     #generate the population of state nodes
     import random
     generation = list()
@@ -41,8 +41,8 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
         scoredGeneration = sorted(scoredGeneration)
         
         #output iteration, most fit individual and their score
-        print 'Iteration: {0}\tMost Fit Individual: {1}\tScore: {2}'.format(
-                iteration, arrToString(scoredGeneration[-1][1]), scoredGeneration[-1][0])
+        if not silent: print 'Iteration: {0}\tMost Fit Individual: {1}\tScore: {2}'.format(
+                        iteration, arrToString(scoredGeneration[-1][1]), scoredGeneration[-1][0])
             
         #sum fitness scores
         totalFitness = 0
@@ -61,8 +61,11 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
         scoredGeneration = temp
         
         #sum up the percentages in each state
+        #set each percentage in such a way, that the most fit (in position 0) is at 1.0
         for i in range(len(scoredGeneration) - 2, -1, -1):
             scoredGeneration[i] = (scoredGeneration[i+1][0] + scoredGeneration[i][0], scoredGeneration[i][1])
+            
+        
         
         #choose double the generation as the state to child ratio is 2:1
         generation = list()
@@ -97,7 +100,6 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize):
             maxChildFitness = max(maxChildFitness, fitness)
             
         #if there has been less than 5% fitness improvement, terminate program
-        print float(maxChildFitness)/maxFitness
         if float(maxChildFitness)/maxFitness > .95:
             return sorted(children)[-1]
         
