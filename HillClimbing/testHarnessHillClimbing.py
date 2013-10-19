@@ -31,22 +31,28 @@ def main():
         exit()
     
     #check to see if it should be run silent
-    silent = None
+    silent = False
     try:
         silent = sys.argv[2]
+        if silent != 'SILENT':
+            raise Exception()
     except:
-        pass
+        silent = False
     
     #run the agent until correct solution is found
     while 1:
-            if silent == 'SILENT': answer = agent.hillClimbingAgent(size, True)
-            else: answer = agent.hillClimbingAgent(size); print ''
-            
-            #check to see if solution is correct
-            if b.boardScore(answer) == 0:
-                print agent.arrToString(answer)
-                p.printBoard(answer)
-                break
+        answer = agent.hillClimbingAgent(size, silent)
+        
+        #newline between each restart
+        if not silent: print ''
+        
+        #check to see if solution is correct
+        if b.boardScore(answer) == 0:
+            break
+    
+    #print solution
+    print agent.arrToString(answer)
+    p.printBoard(answer)
                 
 if __name__ == '__main__':
     main()
