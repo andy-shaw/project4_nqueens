@@ -41,6 +41,10 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
         #score generation
         scoredGeneration, totalFitness = score(generation, populationSize)
         
+        #if total fitness is 0, set it to 1 so there is no division by 0
+        if totalFitness == 0:
+            totalFitness = 1
+        
         #if score is not a 5% improvement then return current gen
         if float(newTotalFitness)/totalFitness > .95:
             return sorted(scoredGeneration, reverse=True)[1][-1]
@@ -74,8 +78,6 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
         children = list()
         for i in range(0, len(generation) - 1, 2):
             x = r.reproduce(generation[i], generation[i+1])
-            # print 'parent1:\t', generation[i], 'parent2:\t', generation[i+1]
-            # print 'child:\t\t',x
             children.append(x)
         
         #mutate the children

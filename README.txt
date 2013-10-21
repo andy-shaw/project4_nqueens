@@ -8,14 +8,17 @@ Course: CSE 3521 - Survey of Artificial Intelligence, Assignment03
 ------------------------------------Compilation/Running---------------------------------------------
 This program is compatible with Python 2.6 (runs on the OSU Linux machines)
 
-To run the Hill Climbing algorithm, invoke the command:
-$ python testHarnessHillClimbing.py # [SILENT]
-    -> # is an integer greater than 4
-    -> NOTE: for #>7 expect longer computation times
+To run the Hill Climbing algorithm, enter the HillClimbing directory and invoke the command:
+$ python testHarnessHillClimbing.py boardSize [SILENT]
+    -> boardSize is an integer greater than 4
+    -> NOTE: for boardSize>7 expect longer computation times
     -> SILENT is an optional flag to display the iteration output or not
     
-To run the Genetic algorithm, invoke the command:
-PUT STUFF HERE
+To run the Genetic algorithm, enter the Genetic directory and invoke the command:
+$ python testHarnessGeneticAlgorithm.py boardSize mutationRate populationSize [SILENT]
+    -> boardSize is an integer greater than 4
+    -> mutationRate is a float between 0 and 1
+    -> populationSize is an integer greater than 1
 
 ----------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------
