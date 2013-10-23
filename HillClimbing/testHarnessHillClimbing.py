@@ -15,7 +15,25 @@ import printBoard as p
 import boardScore as b
 import array
 
-def main():
+def main(size, silent):
+    
+    
+    #run the agent until correct solution is found
+    while 1:
+        answer = agent.hillClimbingAgent(size, silent)
+        
+        #newline between each restart
+        if not silent: print ''
+        
+        #check to see if solution is correct
+        if b.boardScore(answer) == 0:
+            break
+    
+    #print solution
+    # print agent.arrToString(answer)
+    # p.printBoard(answer)
+                
+if __name__ == '__main__':
     #get board size as command line arg
     size = 0
     try:
@@ -38,21 +56,5 @@ def main():
             raise Exception()
     except:
         silent = False
-    
-    #run the agent until correct solution is found
-    while 1:
-        answer = agent.hillClimbingAgent(size, silent)
-        
-        #newline between each restart
-        if not silent: print ''
-        
-        #check to see if solution is correct
-        if b.boardScore(answer) == 0:
-            break
-    
-    #print solution
-    print agent.arrToString(answer)
-    p.printBoard(answer)
-                
-if __name__ == '__main__':
-    main()
+
+    main(size, silent)
