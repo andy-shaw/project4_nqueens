@@ -17,9 +17,9 @@ def boardScore(state):
     #same column
     for queen in range(len(state)):
         #check any in same row
-        for column in range(queen, len(state)):
-            if state[queen] == state[column] and queen != column:
-                attacks += 1
+        # for column in range(queen, len(state)):
+            # if state[queen] == state[column] and queen != column:
+                # attacks += 1
 
         #check diagonals
         #check after queen (from left to right)
@@ -29,5 +29,7 @@ def boardScore(state):
             offset += 1
             if pos+offset == state[column] or pos-offset == state[column]:
                 attacks += 1
-    
+            if state[queen] == state[column] and queen != column:
+                attacks += 1
+            
     return attacks

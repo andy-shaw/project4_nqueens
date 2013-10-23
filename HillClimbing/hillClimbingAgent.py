@@ -27,7 +27,7 @@ def hillClimbingAgent(boardSize, silent=False):
         initial.append(random.randint(0, boardSize-1))
 
     currNode = (b.boardScore(initial), s.copyArr(initial))
-    i = 0
+    i = 1
     while 1:
         childrenHeap = list()
         
@@ -38,29 +38,46 @@ def hillClimbingAgent(boardSize, silent=False):
         for child in children:
             childrenHeap.append((b.boardScore(child), child))
         
-        #sort and pull out next best choice
-        nextNode = heapq.heappop(childrenHeap)
+        #pull out next best choice
+        nextNode = bestChild(childrenHeap)
+        # nextNode = sorted(childrenHeap, reverse=True)[0]
         
         #print status
         if not silent: print 'Iteration:{0}\tState:<{1}>\tBest Child Score:{2}'.format(
                         i, arrToString(currNode[1]), nextNode[0])
         
         #check if solution
-        if b.boardScore(nextNode[1]) == 0:
+        if nextNode[0] == 0:
             return nextNode[1]
             
         #if currNode is less than, then it is the best solution on the board, heap will assure that
-        if currNode[0] >= nextNode[0]:
+        if currNode[0] <= nextNode[0]:
             return currNode[1]
             
         #try again on the nextNode
         currNode = nextNode
         i+=1
         
+'''
+Find the max element in the list
+
+param: children list of tuples where first element is int, second is int[]
+returns single tuple with smallest int in first item
+'''
+def bestChild(children):
+    min = -1
+    for child in children:
+        if min > child[0]:
+            min = child[0]
+    for child in children:
+        if min == child[0]:
+            return child
+        
 def arrToString(arr):
     x = arr.tolist()
     s = ''
     for item in x:
         s += str(item) + ','
+    #drop last comma and return
     return s[:-1]
         

@@ -20,4 +20,5 @@ for i in range(len(board)):
     if bookexample[i] != board[i]:
         check = False
         
-if check: print 'passed book example'
+assert(check)
+print 'passed book example'
