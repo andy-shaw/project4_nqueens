@@ -30,8 +30,8 @@ def main(size, silent):
             break
     
     #print solution
-    # print agent.arrToString(answer)
-    # p.printBoard(answer)
+    print agent.arrToString(answer)
+    p.printBoard(answer)
                 
 if __name__ == '__main__':
     #get board size as command line arg
