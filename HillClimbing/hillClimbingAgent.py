@@ -40,7 +40,6 @@ def hillClimbingAgent(boardSize, silent=False):
         
         #pull out next best choice
         nextNode = bestChild(childrenHeap)
-        # nextNode = sorted(childrenHeap, reverse=True)[0]
         
         #print status
         if not silent: print 'Iteration:{0}\tState:<{1}>\tBest Child Score:{2}'.format(
@@ -65,7 +64,7 @@ param: children list of tuples where first element is int, second is int[]
 returns single tuple with smallest int in first item
 '''
 def bestChild(children):
-    min = -1
+    min = children[0][0]
     for child in children:
         if min > child[0]:
             min = child[0]

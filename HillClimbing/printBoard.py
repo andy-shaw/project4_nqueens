@@ -4,12 +4,12 @@ Date:   10/4/2013
 Course: CSE 3521 - Survey of Artificial Intelligence
                    Assignment03
 
-Using ASCII art, for an 8x8 board or less, display the positioning of the board
+Using ASCII art, for an 30x30 board or less, display the positioning of the board
 '''
 
 def printBoard(state):
     #catch the condition of the board being too large
-    if len(state) > 12:
+    if len(state) > 30:
         return None
     s = ''
     #top line
