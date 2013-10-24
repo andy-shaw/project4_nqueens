@@ -33,8 +33,8 @@ def main(boardSize, mutationRate, populationSize,silent):
             break
             
     #print solution
-    # print agent.arrToString(answer)
-    # p.printBoard(answer)
+    print agent.arrToString(answer)
+    p.printBoard(answer)
     
 '''
 arg: boardSize int for an n x n board

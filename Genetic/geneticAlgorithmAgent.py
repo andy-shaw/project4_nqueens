@@ -30,7 +30,7 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
             newState.append(random.randint(0, boardSize-1))
         generation.append(newState)
     
-    iteration = 0
+    iteration = 1
     totalFitness = 0
     newTotalFitness = 0
     
