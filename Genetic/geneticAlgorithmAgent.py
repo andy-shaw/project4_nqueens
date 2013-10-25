@@ -33,6 +33,12 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
     iteration = 1
     totalFitness = 0
     newTotalFitness = 0
+    n = 0
+    
+    #max fitness is n(n-1)/2 (comment is diff from code for efficiency)
+    maxFitness = (boardSize*(boardSize-1))
+    #termination percentage is 1 - 1/(maxFitness) * 2
+    terminationPercentage = 1.0 - 1.0/maxFitness
     
     #enter genetic algorithm until less than 5% fitness improvement is seen
     while 1:
@@ -45,12 +51,16 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
         if totalFitness == 0:
             totalFitness = 1
         
-        #if score is not a 5% improvement then return current gen
-        if float(newTotalFitness)/totalFitness > .95:
-            return sorted(scoredGeneration, reverse=True)[1][-1]
+        #if score is not better than the termination percentage, try for 5 times
+        if float(newTotalFitness)/totalFitness > terminationPercentage:
+            n += 1
+            if n >= 5: return sorted(scoredGeneration, reverse=True)[1][-1]
+        # else:
+            # n = 0
     
         #output iteration, most fit individual and their score
-        if not silent: print 'Iteration: {0}\tMost Fit Individual: {1}\tScore: {2}'.format(
+        if not silent: 
+            print 'Iteration: {0}\tMost Fit Individual: {1}\tScore: {2}'.format(
                         iteration, arrToString(scoredGeneration[-1][1]), scoredGeneration[-1][0])
             
         #apply percentages of selection to fitness of each state
