@@ -9,7 +9,7 @@ Using ASCII art, for an 30x30 board or less, display the positioning of the boar
 
 def printBoard(state):
     #catch the condition of the board being too large
-    if len(state) > 30:
+    if len(state) > 80:
         return None
     s = ''
     #top line
