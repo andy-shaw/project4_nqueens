@@ -14,11 +14,8 @@ return: state that is a solution
 '''
 
 import array
-from solution import solution
-from boardScore import boardScore
-import reproduce as r
-import mutate as m
 import heapq
+from solution import solution
 
 def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False):
     #generate the population of state nodes
@@ -87,12 +84,12 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
         #create the children
         children = list()
         for i in range(0, len(generation) - 1, 2):
-            x = r.reproduce(generation[i], generation[i+1])
+            x = reproduce(generation[i], generation[i+1])
             children.append(x)
         
         #mutate the children
         for child in children:
-            child = m.mutate(child, mutationRate)
+            child = mutate(child, mutationRate)
             
         #check to see if a solution was found
         for child in children:
@@ -145,3 +142,92 @@ def arrToString(arr):
     for item in x:
         s += str(item) + ','
     return s[:-1]
+
+'''
+This method will take in a state, and score it based on how many queens are not
+attacking each other.
+param: state integer array holding state vector
+return: integer score or rating
+'''
+def boardScore(state):
+    noAttacks = 0
+    
+    #for each queen, see what it can attack
+    #don't check columns, the way the state is represented means 2 cannot be in 
+        #same column
+    for queen in range(len(state)):
+        #check against other queens
+        for otherQueen in range(queen, len(state)):
+            #if other queen is not in same row as this queen
+            if state[queen] != state[otherQueen]:
+                #check diagonals
+                offset = otherQueen - queen
+                if (state[otherQueen] + offset != state[queen] and 
+                    state[otherQueen] - offset != state[queen]):
+                    noAttacks += 1
+                
+
+    return noAttacks
+
+'''
+This method will perform a mutation on the the input string based on a provided mutation rate.
+
+param: state int array representing the state to be mutated
+param: mutationRate double for mutation percentage
+return: new state with mutation applied
+'''
+
+def mutate(state, mutationRate):
+    import random
+    
+    newState = copyArr(state)
+    #check for mutation on each index
+    for pos in range(len(state)):
+        #check to see if mutation occurs
+        if random.random() <= mutationRate:
+            newState[pos] = random.randint(0, len(state)-1)
+        
+    return newState
+ 
+'''
+This program will take two input states and create a population.
+
+Note: a constraint is that len(state1) = len(state2)
+param: state1 int array representing the first parent state
+param: state2 int array representing the second parent state
+return: new array produced from parts of state1 and state2
+'''
+def reproduce(state1, state2):
+    import random
+    import array
+    
+    #choose cut point to split
+    divider = random.randint(1, len(state1)-1)
+    
+    #possible 2 children can form: 
+        #subset from state1|subset from state2
+        #subset from state2|subset from state1
+    child1 = state1[:divider]
+    child1.extend(state2[divider:])
+    child2 = state2[:divider]
+    child2.extend(state1[divider:])
+    
+    #randomly choose a child to survive
+    if random.randint(0,1) == 0:
+        return child1
+    else:
+        return child2
+
+'''
+Copy array into a new array.
+Note: Python arr2 = arr1 will make equivalent by reference, this makes a new array
+
+param: arr1 array to be copied
+return: new identical array
+'''
+def copyArr(arr1):
+    import array
+    newArr = array.array(arr1.typecode)
+    for item in arr1:
+        newArr.append(item)
+    return newArr
