@@ -37,6 +37,9 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
     #termination percentage is 1 - 1/(maxFitness) * 2
     terminationPercentage = 1.0 - 1.0/maxFitness
     
+    #print desired fitness for solution
+    if not silent: print 'Score of {0} required for solution'.format(maxFitness/2)
+    
     #enter genetic algorithm until less than 5% fitness improvement is seen
     while 1:
 
