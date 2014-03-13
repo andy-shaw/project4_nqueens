@@ -13,7 +13,7 @@ except:
     
 size = 6
 mut = .008
-gen = 50
+gen = 100
     
 print '\n\nTesting for n={0}, mutRate={1}, gen={2}\n\n'.format(size,mut,gen)
 start = time.time()
