@@ -14,7 +14,6 @@ import array
 
 def main(size, silent):
     
-    
     #run the agent until correct solution is found
     while 1:
         answer = hillClimbingAgent(size, silent)
@@ -43,6 +42,8 @@ returns: state that is a solution
 '''
 
 import heapq
+import os
+import time
 
 def hillClimbingAgent(boardSize, silent=False):
     #create initial state at random
@@ -66,10 +67,20 @@ def hillClimbingAgent(boardSize, silent=False):
         #pull out next best choice
         nextNode = heapq.heappop(childrenHeap)
         
-        #print status
+        #print status for each iteration
         if not silent: print 'Iteration:{0}\tState:<{1}>\tBest Child Score:{2}'.format(
                         i, arrToString(currNode[1]), nextNode[0])
         
+        #print board at each iteration
+        # if not silent and time.clock() < 15: 
+        #     os.system('cls')
+        #     print i-1
+        #     printBoard(currNode[1])
+        #     time.sleep(.08)
+        # else:
+        #     os.system('cls')
+        #     print 'Finding a solution, please wait'
+
         #check if solution
         if nextNode[0] == 0:
             return nextNode[1]
@@ -139,32 +150,25 @@ def boardScore(state):
     #for each queen, see what it can attack
     #don't check columns, the way the state is represented means 2 cannot be in 
     #same column
-    for queen in range(len(state)):
-        #check any in same row
-        # for column in range(queen, len(state)):
-            # if state[queen] == state[column] and queen != column:
-                # attacks += 1
-
-        #check diagonals
-        #check after queen (from left to right)
+    for queenColumn in range(len(state)):
+        #check right of queenColumn (from left to right)
         offset = 0
-        pos = state[queen]
-        for column in range(queen+1, len(state)):
+        pos = state[queenColumn]
+        for seekColumn in range(queenColumn+1, len(state)):
             offset += 1
-            if pos+offset == state[column] or pos-offset == state[column]:
+            #check diagonal
+            if pos+offset == state[seekColumn] or pos-offset == state[seekColumn]:
                 attacks += 1
-            if state[queen] == state[column] and queen != column:
+            #check row
+            if state[queenColumn] == state[seekColumn] and queenColumn != seekColumn:
                 attacks += 1
             
     return attacks
 
 '''
-Using ASCII art, for an 30x30 board or less, display the positioning of the board
+Using ASCII art, for a board, display the positioning of pieces on the board
 '''
 def printBoard(state):
-    #catch the condition of the board being too large
-    if len(state) > 80:
-        return None
     s = ''
     #top line
     s += '-'*(len(state)*2 + 1) + '\n'

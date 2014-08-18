@@ -28,8 +28,8 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
         generation.append(newState)
     
     iteration = 1
-    totalFitness = 0
-    newTotalFitness = 0
+    totalFitness = 01
+    newTotalFitness = 01
     n = 0
     
     #max fitness is n(n-1)/2 (comment is diff from code for efficiency)
@@ -47,14 +47,10 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
         #score generation
         scoredGeneration, totalFitness = score(generation, populationSize)
         
-        #if total fitness is 0, set it to 1 so there is no division by 0
-        if totalFitness == 0:
-            totalFitness = 1
-        
         #if score is not better than the termination percentage, try for 5 times
         if float(newTotalFitness)/totalFitness > terminationPercentage:
             n += 1
-            if n >= 5: return sorted(scoredGeneration, reverse=True)[1][-1]
+            if n >= 5: return sorted(scoredGeneration, reverse=True)[0][-1]
         # else:
             # n = 0
     
@@ -74,7 +70,7 @@ def geneticAlgorithmAgent(boardSize, mutationRate, populationSize, silent=False)
         for i in range(len(scoredGeneration) - 2, -1, -1):
             scoredGeneration[i] = (scoredGeneration[i+1][0] + scoredGeneration[i][0], scoredGeneration[i][1])
             
-        #choose double the generation as the state to child ratio is 2:1
+        #choose double the population size since the state to child ratio is 2:1
         generation = list()
         for i in range(2*populationSize):
             selection = random.random()

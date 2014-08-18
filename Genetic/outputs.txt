@@ -1,0 +1,63 @@
+This is the output for populationSizeFinder.py
+Each timing is averaged over 50 runs per population size
+
+boardSize: 6  
+-----------------------------------
+populationSize: 50   	avg: 0.331380000114
+populationSize: 100  	avg: 0.225759997368
+populationSize: 150  	avg: 0.237699999809
+populationSize: 200  	avg: 0.25476000309
+populationSize: 250  	avg: 0.325420002937
+populationSize: 300  	avg: 0.411019997597
+populationSize: 350  	avg: 0.419039998055
+populationSize: 400  	avg: 0.422759990692
+populationSize: 450  	avg: 0.385499997139
+populationSize: 500  	avg: 0.482100000381
+===================================
+Best populationSize: 100
+
+boardSize: 7  
+-----------------------------------
+populationSize: 50   	avg: 0.347220001221
+populationSize: 100  	avg: 0.394019999504
+populationSize: 150  	avg: 0.346700000763
+populationSize: 200  	avg: 0.405
+populationSize: 250  	avg: 0.49986000061
+populationSize: 300  	avg: 0.455
+populationSize: 350  	avg: 0.554400000572
+populationSize: 400  	avg: 0.592600002289
+populationSize: 450  	avg: 0.620399999619
+populationSize: 500  	avg: 0.732619996071
+===================================
+Best populationSize: 150
+
+boardSize: 8  
+-----------------------------------
+populationSize: 50   	avg: 1.78027999878
+populationSize: 100  	avg: 1.78450000286
+populationSize: 150  	avg: 1.75546000004
+populationSize: 200  	avg: 2.09006000042
+populationSize: 250  	avg: 1.90964000225
+populationSize: 300  	avg: 2.02981999874
+populationSize: 350  	avg: 2.43960000038
+populationSize: 400  	avg: 2.71611999989
+populationSize: 450  	avg: 3.06521999836
+populationSize: 500  	avg: 2.8711400032
+===================================
+Best populationSize: 150
+
+boardSize: 9  
+-----------------------------------
+populationSize: 50   	avg: 6.94644000053
+populationSize: 100  	avg: 9.39016000271
+populationSize: 150  	avg: 9.98330000401
+populationSize: 200  	avg: 8.2559800005
+populationSize: 250  	avg: 9.9171999979
+populationSize: 300  	avg: 10.1932200003
+populationSize: 350  	avg: 13.1724799967
+populationSize: 400  	avg: 12.2527199984
+populationSize: 450  	avg: 12.3997200012
+populationSize: 500  	avg: 12.2884000015
+===================================
+Best populationSize: 50
+
